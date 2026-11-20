@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=reelo
+GenericName=Media Player
+Comment=Play videos and music in uQ's style
+Icon=io.github.asafelobotomy.reelo
+Exec=reelo -- %U
+TryExec=reelo
+Terminal=false
+Categories=AudioVideo;Video;Audio;Player;Qt;
+Keywords=video;movie;music;audio;player;mpv;vlc;subtitles;stream;
+MimeType=video/mp4;video/x-matroska;video/webm;video/x-msvideo;video/quicktime;video/x-ms-wmv;video/x-flv;video/mpeg;video/mp2t;video/ogg;video/3gpp;video/x-m4v;video/vnd.avi;video/x-ogm+ogg;video/x-theora+ogg;audio/mpeg;audio/flac;audio/x-flac;audio/ogg;audio/x-vorbis+ogg;audio/opus;audio/mp4;audio/x-m4a;audio/aac;audio/x-wav;audio/wav;audio/x-ms-wma;audio/x-matroska;audio/x-ape;audio/x-aiff;audio/x-wavpack;audio/webm;audio/x-mpegurl;audio/x-scpls;
+StartupWMClass=io.github.asafelobotomy.reelo
+SingleMainWindow=false

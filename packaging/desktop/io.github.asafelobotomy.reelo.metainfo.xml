@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.asafelobotomy.reelo</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>reelo</name>
+  <summary>Media player that follows the uQ theme</summary>
+  <description>
+    <p>reelo plays videos, music and streams with mpv's engine, in a window that follows uQ's
+    theme live. It resumes where you stopped, plays the next file in the folder, and shows up in
+    uQ's media controls and your media keys through MPRIS.</p>
+  </description>
+  <launchable type="desktop-id">io.github.asafelobotomy.reelo.desktop</launchable>
+  <url type="homepage">https://github.com/asafelobotomy/reelo</url>
+  <developer id="io.github.asafelobotomy">
+    <name>asafelobotomy</name>
+  </developer>
+  <content_rating type="oars-1.1"/>
+  <releases>
+    <release version="0.1.0" date="2026-11-20"/>
+  </releases>
+</component>
