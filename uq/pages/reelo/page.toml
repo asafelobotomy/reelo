@@ -1,0 +1,107 @@
+# reelo's page in uQ Settings (Apps > Media player). Installed to
+# /usr/share/uq/settings/pages/reelo/ by the reelo package; inert without uQ.
+# Reference: docs/settings-pages.md in the uQ repository. Every read and change is a `reelo`
+# command (see `reelo --help`); nothing here runs as root.
+uq_api = 2
+id = "reelo"
+name = "Media player"
+icon = "io.github.asafelobotomy.reelo"
+qml = "Page.qml"
+keywords = ["reelo", "media", "video", "music", "player", "mpv", "vlc", "movies", "subtitles", "default player"]
+
+[[setting]]
+id = "default"
+label = "Default player"
+keywords = ["default", "open with", "videos", "music", "vlc", "mpv", "file types"]
+
+[[setting]]
+id = "resume"
+label = "Resume where you stopped"
+keywords = ["remember position", "continue", "resume", "watch later"]
+
+[[setting]]
+id = "autoplay_next"
+label = "Play the next file"
+keywords = ["autoplay", "folder", "episodes", "next", "continuous"]
+
+[[setting]]
+id = "keep_awake"
+label = "Keep the screen on"
+keywords = ["screensaver", "idle", "inhibit", "sleep", "lock"]
+
+[[setting]]
+id = "hwdec"
+label = "Hardware decoding"
+keywords = ["gpu", "vaapi", "nvdec", "acceleration", "performance", "battery"]
+
+[[setting]]
+id = "subtitles"
+label = "Subtitles"
+keywords = ["captions", "srt", "ass", "auto load"]
+
+[[setting]]
+id = "sub_lang"
+label = "Subtitle languages"
+keywords = ["language", "captions", "slang"]
+
+[[setting]]
+id = "audio_lang"
+label = "Audio languages"
+keywords = ["language", "dub", "alang"]
+
+[[setting]]
+id = "library"
+label = "Library folder"
+keywords = ["downloads", "av morning star", "hauler", "folder", "start screen", "recent"]
+
+[requires]
+bins = ["reelo"]
+
+# ---- reads
+
+# Every setting with its value and default, from ~/.config/reelo/config.json.
+[[command]]
+id = "config"
+argv = ["/usr/bin/reelo", "config", "show", "--json"]
+output = "json"
+timeout_ms = 8000
+watch = { files = ["~/.config/reelo/config.json"] }
+
+# Whether reelo opens videos and music (mimeapps.list).
+[[command]]
+id = "default-status"
+argv = ["/usr/bin/reelo", "default", "status", "--json"]
+output = "json"
+timeout_ms = 8000
+watch = { files = ["~/.config/mimeapps.list"] }
+
+# The newest media in the library folder, as the start screen lists it.
+[[command]]
+id = "library"
+argv = ["/usr/bin/reelo", "library", "--json"]
+output = "json"
+timeout_ms = 15000
+
+# ---- writes
+
+[[command]]
+id = "config-set"
+argv = ["/usr/bin/reelo", "config", "set"]
+output = "text"
+timeout_ms = 8000
+args = [{ name = "key", pattern = "^(resume|autoplay_next|keep_awake|hwdec|subtitles|sub_lang|audio_lang|library)$" }, { name = "value", pattern = "^(true|false|auto|off|[a-z]{2,3}(,[a-z]{2,3}){0,7}|~?/[A-Za-z0-9 ._+@'()/-]{0,300})$" }]
+
+[[command]]
+id = "config-reset"
+argv = ["/usr/bin/reelo", "config", "reset"]
+output = "text"
+timeout_ms = 8000
+args = [{ name = "key", pattern = "^(resume|autoplay_next|keep_awake|hwdec|subtitles|sub_lang|audio_lang|library)$" }]
+
+# Sets reelo for every video and audio type in ~/.config/mimeapps.list, keeping other lines.
+[[command]]
+id = "default-set"
+argv = ["/usr/bin/reelo", "--json", "default", "set"]
+output = "json"
+timeout_ms = 8000
+confirm = "Open videos and music with reelo from now on?"
