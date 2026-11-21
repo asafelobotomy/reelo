@@ -17,6 +17,8 @@ next file in the folder.
   where AV Morning Star and hauler save), one click to play, "Play all" for the lot.
 - **Queue**: opening one file queues the rest of its folder in natural order (`ep2` before
   `ep10`); drop more files on the window with Shift to add them.
+- **One window**: opening a file while reelo is open plays it in that window and brings it
+  forward (`reelo --new-window FILE` opens a second player).
 - **Resume**: closing a file remembers where you were (mpv's watch-later), and a file that played
   to the end is forgotten.
 - **Subtitles and audio tracks**: matching subtitle files load by themselves; pick tracks from

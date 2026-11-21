@@ -6,6 +6,9 @@
 #include <QCoreApplication>
 #include <QDBusConnection>
 #include <QDBusConnectionInterface>
+#include <QDBusInterface>
+#include <QDBusReply>
+#include <QDir>
 #include <QDBusMessage>
 #include <QFileInfo>
 #include <QMetaProperty>
@@ -140,6 +143,32 @@ void MprisPlayer::OpenUri(const QString &uri)
     m_app->open({uri});
 }
 
+WindowAdaptor::WindowAdaptor(App *app, QObject *parent) : QDBusAbstractAdaptor(parent), m_app(app) {}
+
+void WindowAdaptor::Open(const QStringList &inputs)
+{
+    if (!inputs.isEmpty() && !m_app->open(inputs))
+        emit m_app->notice(QObject::tr("Nothing playable in what was opened"));
+    m_app->raise();
+}
+
+static constexpr auto kName = "org.mpris.MediaPlayer2.reelo";
+
+bool forwardToRunning(const QStringList &inputs)
+{
+    QDBusConnection bus = QDBusConnection::sessionBus();
+    if (!bus.isConnected() || !bus.interface()->isServiceRegistered(kName))
+        return false;
+    // The running reelo has its own working folder: send absolute paths.
+    QStringList absolute;
+    for (const QString &in : inputs)
+        absolute.append(in.contains(QStringLiteral("://")) ? in : QFileInfo(in).absoluteFilePath());
+    QDBusInterface window(kName, kPath, QStringLiteral("io.github.asafelobotomy.reelo.Window"), bus);
+    window.setTimeout(3000);
+    const QDBusMessage reply = window.call(QStringLiteral("Open"), absolute);
+    return reply.type() == QDBusMessage::ReplyMessage;
+}
+
 void MprisPlayer::changed(const QStringList &names)
 {
     QVariantMap props;
@@ -164,9 +193,10 @@ void startMpris(App *app)
     auto *holder = new QObject(app);
     new MprisRoot(app, holder);
     auto *player = new MprisPlayer(app, holder);
+    new WindowAdaptor(app, holder);
     app->m_mpris = player;
     bus.registerObject(kPath, holder);
-    QString name = QStringLiteral("org.mpris.MediaPlayer2.reelo");
+    QString name = QString::fromLatin1(kName);
     if (bus.interface()->isServiceRegistered(name))
         name += QStringLiteral(".instance%1").arg(QCoreApplication::applicationPid());
     if (!bus.registerService(name))
