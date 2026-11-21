@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Follows the uQ theme through uQ's shared uq-theme module (`src/uqtheme.*`, uq-theme 1.0.0) instead of
+  its own copy. It also catches uQ swapping the whole theme folder. A theme missing colours now
+  counts as no theme (reelo's own dark palette), as in uQ's other apps.
+
 ## 0.1.1 — 2026-11-21
 
 - One window per session: opening a video or song while reelo is open plays it in that window

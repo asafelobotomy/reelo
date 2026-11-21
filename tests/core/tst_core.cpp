@@ -148,11 +148,18 @@ private slots:
         QTemporaryDir dir;
         const QString path = dir.filePath("tokens.json");
         QCOMPARE(loadTokens(path).value("present").toBool(), false);
-        touch(path, "{\"colors\":{\"bg\":\"#1f1a2b\",\"accent\":\"#b48ead\",\"text\":\"red\"},\"ui\":{\"radius\":10},\"fonts\":{\"ui\":\"Inter\",\"size\":11}}");
+        // half a theme (or a colour that is not one) is no theme
+        touch(path, "{\"colors\":{\"bg\":\"#1f1a2b\",\"accent\":\"#b48ead\",\"text\":\"red\"}}");
+        QCOMPARE(loadTokens(path).value("present").toBool(), false);
+        QString colors;
+        for (const char *k : {"bg", "surface", "surface_alt", "overlay", "text", "text_muted", "accent",
+                              "accent_text", "border", "success", "warning", "error"})
+            colors += QString("\"%1\":\"%2\",").arg(k, QString(k) == "bg" ? "#1f1a2b" : "#b48ead");
+        colors.chop(1);
+        touch(path, QString("{\"colors\":{%1},\"ui\":{\"radius\":10},\"fonts\":{\"ui\":\"Inter\",\"size\":11}}").arg(colors).toUtf8());
         const QVariantMap t = loadTokens(path);
         QCOMPARE(t.value("present").toBool(), true);
         QCOMPARE(t.value("colors").toMap().value("bg").toString(), QString("#1f1a2b"));
-        QVERIFY(!t.value("colors").toMap().contains("text")); // not a colour
         QCOMPARE(t.value("radius").toInt(), 10);
         QCOMPARE(t.value("fontUi").toString(), QString("Inter"));
     }

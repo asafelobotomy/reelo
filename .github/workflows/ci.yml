@@ -34,6 +34,8 @@ jobs:
           cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-Wall -Wextra -Werror"
           cmake --build build
       - run: ctest --test-dir build --output-on-failure
+      # the vendored uq-theme (uQ's native/uq-theme) is exactly the pinned release
+      - run: scripts/check-uq-theme.sh 1.0.0 src/uqtheme.h src/uqtheme.cpp
       - name: uQ Settings page
         run: QT_QPA_PLATFORM=offscreen /usr/lib/qt6/bin/qmltestrunner -import tests/uq/stub -input tests/uq/tst_page.qml
       - name: The window plays a file and answers over MPRIS
