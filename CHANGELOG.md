@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.2 — 2026-11-21
 
 - Follows the uQ theme through uQ's shared uq-theme module (`src/uqtheme.*`, uq-theme 1.0.0) instead of
   its own copy. It also catches uQ swapping the whole theme folder. A theme missing colours now
