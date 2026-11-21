@@ -27,7 +27,7 @@ class App : public QObject {
     QML_ELEMENT
     QML_SINGLETON
     Q_PROPERTY(reelo::Playlist *playlist READ playlist CONSTANT)
-    Q_PROPERTY(reelo::ThemeWatcher *theme READ theme CONSTANT)
+    Q_PROPERTY(uqtheme::Watcher *theme READ theme CONSTANT)
     Q_PROPERTY(reelo::MpvObject *player READ player WRITE setPlayer NOTIFY playerChanged)
     Q_PROPERTY(QVariantMap settings READ settings NOTIFY settingsChanged)
     Q_PROPERTY(QVariantList library READ library NOTIFY libraryChanged)
@@ -43,7 +43,7 @@ public:
     static App *create(QQmlEngine *, QJSEngine *);
 
     Playlist *playlist() { return &m_playlist; }
-    ThemeWatcher *theme() { return &m_theme; }
+    uqtheme::Watcher *theme() { return &m_theme; }
     MpvObject *player() const { return m_player; }
     void setPlayer(MpvObject *p);
     QVariantMap settings() const { return m_settings; }
@@ -87,7 +87,7 @@ private:
     QStringList m_initial;
     Config m_config;
     Playlist m_playlist;
-    ThemeWatcher m_theme;
+    uqtheme::Watcher m_theme{tokensPath()};
     QFileSystemWatcher m_configWatch;
     QPointer<MpvObject> m_player;
     QPointer<QQuickWindow> m_window;

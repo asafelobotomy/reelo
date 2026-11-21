@@ -23,7 +23,7 @@ add_library(reelo_core STATIC
     src/media.cpp src/media.h
     src/playlist.cpp src/playlist.h
     src/library.cpp src/library.h
-    src/theme.cpp src/theme.h
+    src/theme.h src/uqtheme.cpp src/uqtheme.h
     src/defaultapp.cpp src/defaultapp.h
     src/cli.cpp src/cli.h
 )

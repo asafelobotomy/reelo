@@ -1,40 +1,18 @@
 // uQ's theme tokens (~/.local/state/uq/theme/tokens.json, written by uqd) for the QML Theme
-// singleton. Without uQ, `present` is false and the window uses its own dark palette.
+// singleton, from the vendored uq-theme module (uqtheme.h/.cpp, copied unchanged from uQ's
+// native/uq-theme; CI checks them with scripts/check-uq-theme.sh). Without uQ, `present` is false
+// and the window uses its own dark palette. The file is followed with a file watch, not polled.
 #pragma once
 
-#include <QFileSystemWatcher>
-#include <QObject>
-#include <QTimer>
-#include <QVariantMap>
+#include "uqtheme.h"
 
 namespace reelo {
 
 /// $REELO_UQ_TOKENS, else $XDG_STATE_HOME/uq/theme/tokens.json, else ~/.local/state/uq/...
-QString tokensPath();
+inline QString tokensPath() { return uqtheme::tokensPath("REELO_UQ_TOKENS"); }
 
-/// {present, colors{bg, surface, ...}, radius, fontUi, fontMono, fontSize}; {present: false}
-/// when the file is missing, too big, or has no colours.
-QVariantMap loadTokens(const QString &path);
-
-/// Follows the tokens file (it is replaced, not rewritten, so the folder is watched too).
-class ThemeWatcher : public QObject {
-    Q_OBJECT
-    Q_PROPERTY(QVariantMap tokens READ tokens NOTIFY tokensChanged)
-
-public:
-    explicit ThemeWatcher(QString path = tokensPath(), QObject *parent = nullptr);
-    QVariantMap tokens() const { return m_tokens; }
-
-signals:
-    void tokensChanged();
-
-private:
-    void reload();
-    void rewatch();
-    QString m_path;
-    QVariantMap m_tokens;
-    QFileSystemWatcher m_watcher;
-    QTimer m_debounce;
-};
+/// {present, colors{bg, surface, ...}, radius, fontUi, fontMono, fontSize, ...}; {present: false}
+/// when the file is missing, too big, or not a whole theme.
+inline QVariantMap loadTokens(const QString &path) { return uqtheme::load(path); }
 
 } // namespace reelo
