@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1 — 2026-11-21
+
+- One window per session: opening a video or song while reelo is open plays it in that window
+  and brings it forward, instead of starting a second player. `reelo --new-window FILE` still
+  opens another.
+
 ## 0.1.0 — 2026-11-20
 
 First release.

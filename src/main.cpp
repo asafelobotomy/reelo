@@ -1,5 +1,6 @@
 #include "app.h"
 #include "cli.h"
+#include "mpris.h"
 
 #include <QCoreApplication>
 #include <QGuiApplication>
@@ -25,6 +26,8 @@ int main(int argc, char **argv)
     }
     // "--" ends options: everything after it is a file, even "config".
     args.removeAll(QStringLiteral("--"));
+    // One window per session unless asked: opening a file while reelo is open plays it there.
+    const bool newWindow = args.removeAll(QStringLiteral("--new-window")) > 0;
 
     // mpv draws with OpenGL into the item's framebuffer.
     QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
@@ -39,6 +42,9 @@ int main(int argc, char **argv)
         QQuickStyle::setStyle(QStringLiteral("Basic"));
     // libmpv needs C number formatting; Qt sets the locale from the environment.
     std::setlocale(LC_NUMERIC, "C");
+
+    if (!newWindow && reelo::forwardToRunning(args))
+        return 0;
 
     reelo::App app(args);
 

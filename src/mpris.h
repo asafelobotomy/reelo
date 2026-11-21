@@ -108,7 +108,28 @@ private:
     App *m_app;
 };
 
-/// Registers both adaptors at /org/mpris/MediaPlayer2 and claims
+/// reelo's own call for a second start: Open(inputs) plays what it was given in this window
+/// (nothing given: just comes forward). Sits beside MPRIS on the primary instance's object.
+class WindowAdaptor : public QDBusAbstractAdaptor {
+    Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "io.github.asafelobotomy.reelo.Window")
+
+public:
+    WindowAdaptor(App *app, QObject *parent);
+
+public slots:
+    void Open(const QStringList &inputs);
+
+private:
+    App *m_app;
+};
+
+/// A second start of the window: hands `inputs` (made absolute against this start's folder)
+/// to the reelo already running in the session and returns true, so this start exits; false
+/// when there is none (or it doesn't answer), and this start opens its own window.
+bool forwardToRunning(const QStringList &inputs);
+
+/// Registers the adaptors at /org/mpris/MediaPlayer2 and claims
 /// org.mpris.MediaPlayer2.reelo (or .reelo.instance<pid> when another reelo has it).
 void startMpris(App *app);
 
