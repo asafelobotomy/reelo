@@ -49,6 +49,7 @@ qt_add_qml_module(reelo
     QML_FILES
         qml/Main.qml
         qml/Theme.qml
+        qml/UqThemeBase.qml
         qml/Home.qml
         qml/Controls.qml
         qml/SeekBar.qml

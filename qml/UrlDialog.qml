@@ -47,7 +47,7 @@ Popup {
             selectByMouse: true
             background: Rectangle {
                 color: Theme.bg
-                radius: Theme.radius - 2
+                radius: Theme.radiusControl
                 border.color: field.activeFocus ? Theme.accent : Theme.border
             }
             onAccepted: go.clicked()
