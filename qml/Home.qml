@@ -117,6 +117,7 @@ Rectangle {
                     background: Rectangle {
                         radius: Theme.radius - 3
                         color: row.hovered ? Theme.surfaceAlt : "transparent"
+                        Behavior on color { ColorAnimation { duration: Theme.motionFast } }
                     }
                     contentItem: RowLayout {
                         spacing: 12

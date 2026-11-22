@@ -133,7 +133,7 @@ ApplicationWindow {
         height: 64
         visible: win.playing
         opacity: win.controlsShown ? 1 : 0
-        Behavior on opacity { NumberAnimation { duration: 200 } }
+        Behavior on opacity { NumberAnimation { duration: Theme.motionSlow; easing.type: Theme.easing } }
         gradient: Gradient {
             GradientStop { position: 0; color: Qt.alpha(Theme.scrim, 0.65) }
             GradientStop { position: 1; color: "transparent" }
@@ -176,7 +176,7 @@ ApplicationWindow {
         visible: win.playing
         opacity: win.controlsShown ? 1 : 0
         enabled: opacity > 0.5
-        Behavior on opacity { NumberAnimation { duration: 200 } }
+        Behavior on opacity { NumberAnimation { duration: Theme.motionSlow; easing.type: Theme.easing } }
         playlistOpen: win.playlistOpen
         onTogglePlaylist: win.playlistOpen = !win.playlistOpen
         onToggleFullscreen: App.fullscreen = !App.fullscreen

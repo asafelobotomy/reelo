@@ -32,7 +32,7 @@ Item {
         height: drag.containsMouse || drag.pressed ? 6 : 4
         radius: height / 2
         color: Qt.alpha(bar.tint, 0.25)
-        Behavior on height { NumberAnimation { duration: 100 } }
+        Behavior on height { NumberAnimation { duration: Theme.motionFast; easing.type: Theme.easing } }
 
         Rectangle {
             height: parent.height
@@ -58,7 +58,7 @@ Item {
         x: (bar.duration > 0 ? track.width * Math.min(1, bar.shown / bar.duration) : 0) - width / 2
         visible: bar.enabled
         scale: drag.containsMouse || drag.pressed ? 1 : 0
-        Behavior on scale { NumberAnimation { duration: 100 } }
+        Behavior on scale { NumberAnimation { duration: Theme.motionFast; easing.type: Theme.easing } }
     }
 
     // The time under the pointer.
