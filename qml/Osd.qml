@@ -17,7 +17,7 @@ Rectangle {
     color: Qt.alpha(Theme.scrim, 0.7)
     opacity: 0
     visible: opacity > 0
-    Behavior on opacity { NumberAnimation { duration: 180 } }
+    Behavior on opacity { NumberAnimation { duration: Theme.motionSlow; easing.type: Theme.easing } }
 
     Label {
         id: label
