@@ -200,7 +200,7 @@ void startMpris(App *app)
     if (bus.interface()->isServiceRegistered(name))
         name += QStringLiteral(".instance%1").arg(QCoreApplication::applicationPid());
     if (!bus.registerService(name))
-        qWarning("reelo: could not claim %s on the session bus", qPrintable(name));
+        qWarning("[REELO-003] could not claim %s on the session bus", qPrintable(name));
 }
 
 } // namespace reelo

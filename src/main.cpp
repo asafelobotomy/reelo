@@ -1,6 +1,7 @@
 #include "app.h"
 #include "cli.h"
 #include "mpris.h"
+#include "uqdiag.h"
 
 #include <QCoreApplication>
 #include <QGuiApplication>
@@ -15,6 +16,8 @@
 
 int main(int argc, char **argv)
 {
+    // uQ's log format and crash records (uQ's native/uq-diag).
+    uqdiag::init("reelo", REELO_VERSION);
     QStringList args;
     for (int i = 1; i < argc; ++i)
         args.append(QString::fromLocal8Bit(argv[i]));

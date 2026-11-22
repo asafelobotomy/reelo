@@ -1,0 +1,25 @@
+# reelo's problem codes for uQ (`uqctl log`, `uqctl explain`, Settings › Problems). Installed as
+# /usr/share/uq/diag/reelo.toml. A code never changes meaning: set `retired = true` on one nothing
+# logs any more, and give a new problem the next number.
+app = "reelo"
+
+[[code]]
+id = "REELO-001"
+severity = "error"
+title = "reelo couldn't start video playback"
+means = "mpv, which reelo plays video with, couldn't set up its OpenGL renderer, so videos stay black. Sound may still play."
+fix = "Check that your graphics driver's OpenGL works (for example, that other apps show 3D). Updating Mesa or the NVIDIA driver and restarting usually helps."
+
+[[code]]
+id = "REELO-002"
+severity = "warn"
+title = "mpv turned down a setting"
+means = "reelo asked mpv to change a setting (such as a subtitle or audio option) and mpv said no. That one setting is left as it was."
+fix = "Check the value on uQ Settings' Media player page, or in ~/.config/reelo. The logged line names the setting and why."
+
+[[code]]
+id = "REELO-003"
+severity = "warn"
+title = "Media keys may not reach reelo"
+means = "reelo couldn't register itself for media controls on the session bus, so the play/pause keys and uQ's media controls may not see it."
+fix = "Close other reelo windows and open it again. If it keeps happening, log out and in."
