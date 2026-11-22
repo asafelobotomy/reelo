@@ -26,6 +26,7 @@ add_library(reelo_core STATIC
     src/theme.h src/uqtheme.cpp src/uqtheme.h
     src/defaultapp.cpp src/defaultapp.h
     src/cli.cpp src/cli.h
+    src/uqdiag.cpp src/uqdiag.h
 )
 target_include_directories(reelo_core PUBLIC src)
 target_compile_definitions(reelo_core PUBLIC REELO_VERSION="${PROJECT_VERSION}")
@@ -79,6 +80,8 @@ install(FILES packaging/desktop/io.github.asafelobotomy.reelo.metainfo.xml
 install(FILES icons/reelo.svg DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps
     RENAME io.github.asafelobotomy.reelo.svg)
 install(DIRECTORY uq/pages/reelo DESTINATION ${CMAKE_INSTALL_DATADIR}/uq/settings/pages)
+# reelo's problem codes, for uqctl explain and uQ Settings' Problems page.
+install(FILES uq/diag/reelo.toml DESTINATION ${CMAKE_INSTALL_DATADIR}/uq/diag)
 
 if(REELO_TESTS)
     enable_testing()

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.4 — 2026-11-22
+
+- **reelo's problems show in uQ.** reelo uses uQ's shared uq-diag module (`src/uqdiag.*`, uq-diag 1.0.0): a crash leaves a crash record (with a backtrace) that uQ 0.3.35 lists on Settings › Problems with a report to copy, and its warnings log in uQ's format with codes (`REELO-001` video couldn't start, `REELO-002` mpv turned down a setting, `REELO-003` media keys may not reach reelo) that `uqctl explain` and the Problems page explain from `/usr/share/uq/diag/reelo.toml`. CI checks the vendored copy and that the codes and the list agree.
+
 ## 0.1.3 — 2026-11-22
 
 - **Moves like the desktop.** Hover and press colours fade in 100 ms instead of snapping, and fades, slides and toasts use uQ's shell speeds (100, 140 and 220 ms) with an ease-out curve instead of a mix of 70 to 250 ms and linear easing. The speeds are `Theme.motionFast`, `motionBase`, `motionSlow` and `Theme.easing`, matching uQ's `shell/core/Motion.qml`.

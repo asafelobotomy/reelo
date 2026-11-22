@@ -87,7 +87,7 @@ public:
 #endif
             params.append({MPV_RENDER_PARAM_INVALID, nullptr});
             if (mpv_render_context_create(&m_ctx, m_obj->handle(), params.data()) < 0) {
-                qWarning("reelo: mpv could not start its OpenGL renderer");
+                qWarning("[REELO-001] mpv could not start its OpenGL renderer");
                 m_ctx = nullptr;
             } else {
                 mpv_render_context_set_update_callback(m_ctx, onRenderUpdate, m_obj);
@@ -223,7 +223,7 @@ void MpvObject::set(const QString &name, const QVariant &value)
         rc = mpv_set_property_string(m_mpv, n.constData(), value.toString().toUtf8().constData());
     }
     if (rc < 0)
-        qWarning("reelo: mpv refused %s: %s", n.constData(), mpv_error_string(rc));
+        qWarning("[REELO-002] mpv refused %s: %s", n.constData(), mpv_error_string(rc));
 }
 
 QVariant MpvObject::get(const QString &name) const
