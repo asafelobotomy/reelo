@@ -59,7 +59,7 @@ Rectangle {
                 Accessible.name: title
 
                 background: Rectangle {
-                    radius: Theme.radius - 2
+                    radius: Theme.radiusControl
                     color: row.isCurrent ? Qt.alpha(Theme.accent, 0.22)
                          : row.hovered ? Theme.surfaceAlt : "transparent"
                 }
