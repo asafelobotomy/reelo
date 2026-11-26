@@ -13,3 +13,7 @@ version = "1.0.1"
 files = ["src/uqdiag.h", "src/uqdiag.cpp"]
 codes = "uq/diag/reelo.toml"
 sources = ["src", "qml"]
+
+[uq-loc]
+version = "1.0.0"
+files = ["scripts/check-loc.sh"]
