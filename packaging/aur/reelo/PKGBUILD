@@ -18,6 +18,8 @@ optdepends=('yt-dlp: play video pages (YouTube and the like) from an address'
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
 sha256sums=('SKIP')
 
+conflicts+=('uq<0.3.41')  # uq-compat: from uQ's compat/family.toml
+
 build() {
   cmake -S "$pkgname-$pkgver" -B build -G Ninja \
     -DCMAKE_BUILD_TYPE=None -DCMAKE_INSTALL_PREFIX=/usr -DREELO_TESTS=ON
